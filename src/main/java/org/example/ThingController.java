@@ -11,6 +11,12 @@ import java.util.List;
 import java.util.Map;
 
 public class ThingController {
+    private final HomeSystem homeSystem;
+    public ThingController(HomeSystem homeSystem) {
+        this.homeSystem = homeSystem;
+
+    }
+
     public String detail(Request request, Response response){
 
         //FIXME Protect request param for invalid values
@@ -20,7 +26,7 @@ public class ThingController {
 
 
 
-        List<Thing> things = HomeSystem.getInstance().getThings();
+        List<Thing> things = homeSystem.getThings();
 
         Thing thing = things.get(index);
         Light light = (Light)thing;

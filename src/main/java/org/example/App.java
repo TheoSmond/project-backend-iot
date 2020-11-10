@@ -13,17 +13,19 @@ public class App {
  public static void main(String[] args) {
         initialize();
 
-        HomeSystem homeSystem = HomeSystem.getInstance();
+        HomeSystem homeSystem = new HomeSystem();
         Light light = new Light();
         light.setName("Living Room");
+        light.setOnLightChangedListener(homeSystem);
         homeSystem.addThing(light);
 
         light = new Light();
         light.setName("Bedroom");
+        light.setOnLightChangedListener(homeSystem);
         homeSystem.addThing(light);
 
-        HomeSystemController homeSystemController = new HomeSystemController();
-        ThingController thingController = new ThingController();
+        HomeSystemController homeSystemController = new HomeSystemController(homeSystem);
+        ThingController thingController = new ThingController(homeSystem);
 
         Spark.get("/", (req, res) -> homeSystemController.list(req,res));
         Spark.get("/things/:id", (req, res) -> thingController.detail(req,res));
